@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Required by people using windows
+gem 'eventmachine', '1.0.0.beta.4'
+
 gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
@@ -29,7 +32,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
