@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508143733) do
+ActiveRecord::Schema.define(:version => 20120508144857) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -302,6 +302,19 @@ ActiveRecord::Schema.define(:version => 20120508143733) do
     t.integer "typeID",      :null => false
     t.integer "quantity"
     t.boolean "isInput"
+  end
+
+  create_table "warCombatZoneSystems", :id => false, :force => true do |t|
+    t.integer "solarSystemID"
+    t.integer "combatZoneID"
+  end
+
+  create_table "warCombatZones", :id => false, :force => true do |t|
+    t.integer "combatZoneID"
+    t.string  "combatZoneName", :limit => 100
+    t.integer "factionID"
+    t.integer "centerSystemID"
+    t.string  "description",    :limit => 500
   end
 
 end
