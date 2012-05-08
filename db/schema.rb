@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507100459) do
+ActiveRecord::Schema.define(:version => 20120508143733) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -284,6 +284,24 @@ ActiveRecord::Schema.define(:version => 20120507100459) do
     t.string  "unitName",    :limit => 100
     t.string  "displayName", :limit => 50
     t.string  "description", :limit => 1000
+  end
+
+  create_table "planetSchematics", :id => false, :force => true do |t|
+    t.integer "schematicID"
+    t.string  "schematicName"
+    t.integer "cycleTime"
+  end
+
+  create_table "planetSchematicsPinMap", :id => false, :force => true do |t|
+    t.integer "schematicID", :null => false
+    t.integer "pinTypeID",   :null => false
+  end
+
+  create_table "planetSchematicsTypeMap", :id => false, :force => true do |t|
+    t.integer "schematicID", :null => false
+    t.integer "typeID",      :null => false
+    t.integer "quantity"
+    t.boolean "isInput"
   end
 
 end
