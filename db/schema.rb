@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509041137) do
+ActiveRecord::Schema.define(:version => 20120509051732) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -386,6 +386,11 @@ ActiveRecord::Schema.define(:version => 20120509041137) do
     t.integer "metaGroupID"
   end
 
+  create_table "invNames", :id => false, :force => true do |t|
+    t.integer "itemID"
+    t.string  "itemName", :limit => 200, :null => false
+  end
+
   create_table "invPositions", :id => false, :force => true do |t|
     t.integer "itemID"
     t.float   "x",      :null => false
@@ -434,11 +439,6 @@ ActiveRecord::Schema.define(:version => 20120509041137) do
     t.integer "groupID"
   end
 
-  create_table "inv_names", :id => false, :force => true do |t|
-    t.integer "itemID"
-    t.string  "itemName", :limit => 200, :null => false
-  end
-
   create_table "planetSchematics", :id => false, :force => true do |t|
     t.integer "schematicID"
     t.string  "schematicName"
@@ -455,6 +455,34 @@ ActiveRecord::Schema.define(:version => 20120509041137) do
     t.integer "typeID",      :null => false
     t.integer "quantity"
     t.boolean "isInput"
+  end
+
+  create_table "staOperationServices", :id => false, :force => true do |t|
+    t.integer "operationID", :null => false
+    t.integer "serviceID",   :null => false
+  end
+
+  create_table "staOperations", :id => false, :force => true do |t|
+    t.integer "activityID"
+    t.integer "operationID"
+    t.string  "operationName",         :limit => 100
+    t.string  "description",           :limit => 1000
+    t.integer "fringe"
+    t.integer "corridor"
+    t.integer "hub"
+    t.integer "border"
+    t.integer "ratio"
+    t.integer "caldariStationTypeID"
+    t.integer "minmatarStationTypeID"
+    t.integer "amarrStationTypeID"
+    t.integer "gallenteStationTypeID"
+    t.integer "joveStationTypeID"
+  end
+
+  create_table "staServices", :id => false, :force => true do |t|
+    t.integer "serviceID",                   :null => false
+    t.string  "serviceName", :limit => 100
+    t.string  "description", :limit => 1000
   end
 
   create_table "warCombatZoneSystems", :id => false, :force => true do |t|
