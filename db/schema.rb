@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508144857) do
+ActiveRecord::Schema.define(:version => 20120509041137) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -284,6 +284,159 @@ ActiveRecord::Schema.define(:version => 20120508144857) do
     t.string  "unitName",    :limit => 100
     t.string  "displayName", :limit => 50
     t.string  "description", :limit => 1000
+  end
+
+  create_table "invBlueprintTypes", :id => false, :force => true do |t|
+    t.integer "blueprintTypeID"
+    t.integer "parentBlueprintTypeID"
+    t.integer "productTypeID"
+    t.integer "productionTime"
+    t.integer "techLevel"
+    t.integer "researchProductivityTime"
+    t.integer "researchMaterialTime"
+    t.integer "researchCopyTime"
+    t.integer "researchTechTime"
+    t.integer "productivityModifier"
+    t.integer "materialModifier"
+    t.integer "wasteFactor"
+    t.integer "maxProductionLimit"
+  end
+
+  create_table "invCategories", :id => false, :force => true do |t|
+    t.integer "categoryID"
+    t.string  "categoryName", :limit => 100
+    t.string  "description",  :limit => 3000
+    t.integer "iconID"
+    t.boolean "published"
+  end
+
+  create_table "invContrabandTypes", :id => false, :force => true do |t|
+    t.integer "factionID",        :null => false
+    t.integer "typeID",           :null => false
+    t.float   "standingLoss"
+    t.float   "confiscateMinSec"
+    t.float   "fineByValue"
+    t.float   "attackMinSec"
+  end
+
+  create_table "invControlTowerResourcePurposes", :id => false, :force => true do |t|
+    t.integer "purpose"
+    t.string  "purposeText", :limit => 100
+  end
+
+  create_table "invControlTowerResources", :id => false, :force => true do |t|
+    t.integer "controlTowerTypeID", :null => false
+    t.integer "resourceTypeID",     :null => false
+    t.integer "purpose"
+    t.integer "quantity"
+    t.float   "minSecurityLevel"
+    t.integer "factionID"
+  end
+
+  create_table "invFlags", :id => false, :force => true do |t|
+    t.integer "flagID"
+    t.string  "flagName", :limit => 200
+    t.string  "flagText", :limit => 100
+    t.integer "orderID"
+  end
+
+  create_table "invGroups", :id => false, :force => true do |t|
+    t.integer "groupID"
+    t.integer "categoryID"
+    t.string  "groupName",            :limit => 100
+    t.string  "description",          :limit => 3000
+    t.integer "iconID"
+    t.boolean "useBasePrice"
+    t.boolean "allowManufacture"
+    t.boolean "allowRecycler"
+    t.boolean "anchored"
+    t.boolean "anchorable"
+    t.boolean "fittableNonSingleton"
+    t.boolean "published"
+  end
+
+  create_table "invItems", :id => false, :force => true do |t|
+    t.integer "itemID"
+    t.integer "typeID",     :null => false
+    t.integer "ownerID",    :null => false
+    t.integer "locationID", :null => false
+    t.integer "flagID",     :null => false
+    t.integer "quantity",   :null => false
+  end
+
+  create_table "invMarketGroups", :id => false, :force => true do |t|
+    t.integer "marketGroupID"
+    t.integer "parentGroupID"
+    t.string  "marketGroupName", :limit => 100
+    t.string  "description",     :limit => 3000
+    t.integer "iconID"
+    t.boolean "hasTypes"
+  end
+
+  create_table "invMetaGroups", :id => false, :force => true do |t|
+    t.integer "metaGroupID"
+    t.string  "metaGroupName", :limit => 100
+    t.string  "description",   :limit => 1000
+    t.integer "iconID"
+  end
+
+  create_table "invMetaTypes", :id => false, :force => true do |t|
+    t.integer "typeID"
+    t.integer "parentTypeID"
+    t.integer "metaGroupID"
+  end
+
+  create_table "invPositions", :id => false, :force => true do |t|
+    t.integer "itemID"
+    t.float   "x",      :null => false
+    t.float   "y",      :null => false
+    t.float   "z",      :null => false
+    t.float   "yaw"
+    t.float   "pitch"
+    t.float   "roll"
+  end
+
+  create_table "invTypeMaterials", :id => false, :force => true do |t|
+    t.integer "typeID",         :null => false
+    t.integer "materialTypeID", :null => false
+    t.integer "quantity",       :null => false
+  end
+
+  create_table "invTypeReactions", :id => false, :force => true do |t|
+    t.integer "reactionTypeID", :null => false
+    t.boolean "input",          :null => false
+    t.integer "typeID",         :null => false
+    t.integer "quantity"
+  end
+
+  create_table "invTypes", :id => false, :force => true do |t|
+    t.integer "typeID"
+    t.integer "groupID"
+    t.string  "typeName",            :limit => 100
+    t.string  "description",         :limit => 3000
+    t.integer "graphicID"
+    t.float   "radius"
+    t.float   "mass"
+    t.float   "volume"
+    t.float   "capacity"
+    t.integer "portionSize"
+    t.integer "raceID"
+    t.float   "basePrice"
+    t.boolean "published"
+    t.integer "marketGroupID"
+    t.float   "chanceOfDuplicating"
+    t.integer "iconID"
+  end
+
+  create_table "invUniqueNames", :id => false, :force => true do |t|
+    t.integer "itemID",                  :null => false
+    t.string  "itemName", :limit => 200, :null => false
+    t.integer "groupID"
+  end
+
+  create_table "inv_names", :id => false, :force => true do |t|
+    t.integer "itemID"
+    t.string  "itemName", :limit => 200, :null => false
   end
 
   create_table "planetSchematics", :id => false, :force => true do |t|
