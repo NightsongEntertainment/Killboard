@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120510041140) do
+ActiveRecord::Schema.define(:version => 20120510044808) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -596,6 +596,35 @@ ActiveRecord::Schema.define(:version => 20120510041140) do
     t.float   "reprocessingEfficiency"
     t.float   "reprocessingStationsTake"
     t.integer "reprocessingHangarFlag"
+  end
+
+  create_table "translationTables", :id => false, :force => true do |t|
+    t.string  "sourceTable",      :limit => 200, :null => false
+    t.string  "destinationTable", :limit => 200
+    t.string  "translatedKey",    :limit => 200, :null => false
+    t.integer "tcGroupID"
+    t.integer "tcID"
+  end
+
+  create_table "trnTranslationColumns", :id => false, :force => true do |t|
+    t.integer "tcGroupID"
+    t.integer "tcID"
+    t.string  "tableName",  :limit => 256, :null => false
+    t.string  "columnName", :limit => 128, :null => false
+    t.string  "masterID",   :limit => 128
+  end
+
+  create_table "trnTranslationLanguages", :id => false, :force => true do |t|
+    t.integer "numericLanguageID"
+    t.string  "languageID",        :limit => 50
+    t.string  "languageName",      :limit => 200
+  end
+
+  create_table "trnTranslations", :id => false, :force => true do |t|
+    t.integer "tcID",                       :null => false
+    t.integer "keyID",                      :null => false
+    t.string  "languageID", :limit => 50,   :null => false
+    t.string  "text",       :limit => 9999, :null => false
   end
 
   create_table "warCombatZoneSystems", :id => false, :force => true do |t|
