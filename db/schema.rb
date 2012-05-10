@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509051732) do
+ActiveRecord::Schema.define(:version => 20120510041140) do
 
   create_table "agtAgentTypes", :id => false, :force => true do |t|
     t.integer "agentTypeID"
@@ -457,6 +457,84 @@ ActiveRecord::Schema.define(:version => 20120509051732) do
     t.boolean "isInput"
   end
 
+  create_table "ramActivities", :id => false, :force => true do |t|
+    t.integer "activityID"
+    t.string  "activityName", :limit => 100
+    t.string  "iconNo",       :limit => 5
+    t.string  "description",  :limit => 1000
+    t.boolean "published"
+  end
+
+  create_table "ramAssemblyLineStations", :id => false, :force => true do |t|
+    t.integer "stationID",          :null => false
+    t.integer "assemblyLineTypeID", :null => false
+    t.integer "quantity"
+    t.integer "stationTypeID"
+    t.integer "ownerID"
+    t.integer "solarSystemID"
+    t.integer "regionID"
+  end
+
+  create_table "ramAssemblyLineTypeDetailPerCategory", :id => false, :force => true do |t|
+    t.integer "assemblyLineTypeID", :null => false
+    t.integer "categoryID",         :null => false
+    t.float   "timeMultiplier"
+    t.float   "materialMultiplier"
+  end
+
+  create_table "ramAssemblyLineTypeDetailPerGroup", :id => false, :force => true do |t|
+    t.integer "assemblyLineTypeID", :null => false
+    t.integer "groupID",            :null => false
+    t.float   "timeMultiplier"
+    t.float   "materialMultiplier"
+  end
+
+  create_table "ramAssemblyLineTypes", :id => false, :force => true do |t|
+    t.integer "assemblyLineTypeID"
+    t.string  "assemblyLineTypeName",   :limit => 100
+    t.string  "description",            :limit => 1000
+    t.float   "baseTimeMultiplier"
+    t.float   "baseMaterialMultiplier"
+    t.float   "volume"
+    t.integer "activityID"
+    t.float   "minCostPerHour"
+  end
+
+  create_table "ramAssemblyLines", :id => false, :force => true do |t|
+    t.integer  "assemblyLineID"
+    t.integer  "assemblyLineTypeID"
+    t.integer  "containerID"
+    t.datetime "nextFreeTime"
+    t.integer  "UIGroupingID"
+    t.float    "costInstall"
+    t.float    "costPerHour"
+    t.integer  "restrictionMask"
+    t.float    "discountPerGoodStandingPoint"
+    t.float    "surchargePerBadStandingPoint"
+    t.float    "minimumStanding"
+    t.float    "minimumCharSecurity"
+    t.float    "minimumCorpSecurity"
+    t.float    "maximumCharSecurity"
+    t.float    "maximumCorpSecurity"
+    t.integer  "ownerID"
+    t.integer  "activityID"
+  end
+
+  create_table "ramInstallationTypeContents", :id => false, :force => true do |t|
+    t.integer "installationTypeID", :null => false
+    t.integer "assemblyLineTypeID", :null => false
+    t.integer "quantity"
+  end
+
+  create_table "ramTypeRequirements", :id => false, :force => true do |t|
+    t.integer "typeID",         :null => false
+    t.integer "activityID",     :null => false
+    t.integer "requiredTypeID", :null => false
+    t.integer "quantity"
+    t.float   "damagePerJob"
+    t.boolean "recycle"
+  end
+
   create_table "staOperationServices", :id => false, :force => true do |t|
     t.integer "operationID", :null => false
     t.integer "serviceID",   :null => false
@@ -483,6 +561,41 @@ ActiveRecord::Schema.define(:version => 20120509051732) do
     t.integer "serviceID",                   :null => false
     t.string  "serviceName", :limit => 100
     t.string  "description", :limit => 1000
+  end
+
+  create_table "staStationTypes", :id => false, :force => true do |t|
+    t.integer "stationTypeID"
+    t.float   "dockEntryX"
+    t.float   "dockEntryY"
+    t.float   "dockEntryZ"
+    t.float   "dockOrientationX"
+    t.float   "dockOrientationY"
+    t.float   "dockOrientationZ"
+    t.integer "operationID"
+    t.integer "officeSlots"
+    t.float   "reprocessingEfficiency"
+    t.boolean "conquerable"
+  end
+
+  create_table "staStations", :id => false, :force => true do |t|
+    t.integer "stationID"
+    t.integer "security"
+    t.float   "dockingCostPerVolume"
+    t.float   "maxShipVolumeDockable"
+    t.integer "officeRentalCost"
+    t.integer "operationID"
+    t.integer "stationTypeID"
+    t.integer "corporationID"
+    t.integer "solarSystemID"
+    t.integer "constellationID"
+    t.integer "regionID"
+    t.string  "stationName",              :limit => 100
+    t.float   "x"
+    t.float   "y"
+    t.float   "z"
+    t.float   "reprocessingEfficiency"
+    t.float   "reprocessingStationsTake"
+    t.integer "reprocessingHangarFlag"
   end
 
   create_table "warCombatZoneSystems", :id => false, :force => true do |t|
